@@ -587,3 +587,6 @@ p { margin: 0 0 1em; }
     transform: none !important;
   }
 }
+.final-emojis {
+  white-space: pre-line;
+}
