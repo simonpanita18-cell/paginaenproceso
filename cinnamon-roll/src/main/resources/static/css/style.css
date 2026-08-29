@@ -1,0 +1,589 @@
+/* =========================================================
+   TOKENS
+   ========================================================= */
+:root {
+  --crema: #FBF3E7;
+  --blanco-calido: #FFFDF8;
+  --beige: #F0E1C9;
+  --caramelo: #C98A4B;
+  --caramelo-oscuro: #A9703A;
+  --rosa-suave: #F3D9D2;
+  --cafe-texto: #5B3A29;
+  --cafe-suave: #8C6A50;
+
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Quicksand", "Segoe UI", sans-serif;
+  --font-hand: "Caveat", cursive;
+
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --shadow-soft: 0 12px 30px rgba(169, 112, 58, 0.14);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--cafe-texto);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+.container.narrow { max-width: 680px; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--caramelo-oscuro);
+  margin: 0 0 0.6em;
+}
+
+p { margin: 0 0 1em; }
+
+.section-eyebrow, .eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--caramelo);
+  margin-bottom: 0.9rem;
+}
+.section-eyebrow::before { content: "☁ "; }
+
+.click-heart {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  font-size: 1.3rem;
+  pointer-events: none;
+  z-index: 9999;
+  animation: heartPop 1.1s ease forwards;
+}
+@keyframes heartPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  20%  { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, calc(-50% - 60px)) scale(0.9); }
+}
+
+.lead-text { font-size: 1.08rem; color: var(--cafe-suave); }
+.lead-text.small { font-size: 1rem; }
+
+.section {
+  padding: 6.5rem 1.5rem;
+  position: relative;
+}
+
+/* =========================================================
+   AMBIENT PARTICLES (very subtle)
+   ========================================================= */
+.ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.ambient span {
+  position: absolute;
+  bottom: -10%;
+  font-size: 1.2rem;
+  opacity: 0;
+  animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 0.35; }
+  90%  { opacity: 0.25; }
+  100% { transform: translateY(-110vh) translateX(20px) rotate(25deg); opacity: 0; }
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(243, 217, 210, 0.55), transparent 55%),
+    radial-gradient(circle at 80% 75%, rgba(201, 138, 75, 0.18), transparent 55%),
+    var(--crema);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/cinnamoroll-fresa.png');
+  background-repeat: repeat;
+  background-size: 150px auto;
+  opacity: 0.10;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-content { padding: 1rem; position: relative; z-index: 1; }
+
+.hero-cinnamoroll {
+  width: clamp(90px, 18vw, 130px);
+  filter: drop-shadow(0 10px 18px rgba(169, 112, 58, 0.22));
+  margin-bottom: 0.6rem;
+  animation: floatSoft 4s ease-in-out infinite;
+}
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+.hero-title {
+  font-size: clamp(2.6rem, 8vw, 4.6rem);
+  margin-bottom: 0.4rem;
+}
+.roll-emoji { display: inline-block; animation: gentleSpin 9s linear infinite; }
+.roll-emoji-sm { display: inline-block; animation: gentleSpin 9s linear infinite; }
+
+@keyframes gentleSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--cafe-suave);
+  margin-bottom: 2.2rem;
+}
+
+.btn-entrar {
+  border: none;
+  background: var(--caramelo);
+  color: var(--blanco-calido);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.btn-entrar:hover {
+  transform: translateY(-3px);
+  background: var(--caramelo-oscuro);
+  box-shadow: 0 16px 34px rgba(169, 112, 58, 0.22);
+}
+.btn-entrar:active { transform: translateY(0); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  color: var(--caramelo);
+  animation: bounce 2.2s ease-in-out infinite;
+  z-index: 1;
+}
+@keyframes bounce {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
+  50%      { transform: translate(-50%, 8px); opacity: 1; }
+}
+
+.reveal-on-load {
+  animation: fadeUp 1s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   SCROLL REVEAL (JS toggles .is-visible)
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+.intro { background: var(--blanco-calido); text-align: center; }
+
+/* =========================================================
+   FEELINGS CARDS
+   ========================================================= */
+.feelings {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.feelings::before, .feelings::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  z-index: 0;
+  pointer-events: none;
+}
+.feelings::before {
+  width: 220px; height: 220px;
+  background: var(--rosa-suave);
+  opacity: 0.5;
+  top: -60px; left: -60px;
+}
+.feelings::after {
+  width: 160px; height: 160px;
+  background: var(--beige);
+  opacity: 0.6;
+  bottom: -40px; right: -30px;
+}
+.feelings .container { position: relative; z-index: 1; }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.4rem;
+  margin-top: 2.5rem;
+}
+
+.feel-card {
+  background: var(--blanco-calido);
+  border: 1px solid rgba(169, 112, 58, 0.12);
+  border-radius: var(--radius-md);
+  padding: 1.8rem 1.4rem;
+  text-align: left;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+.feel-card::after {
+  content: "🤍";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1.3rem;
+  opacity: 0;
+  transform: scale(0.4) rotate(-15deg);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.feel-card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 18px 36px rgba(169, 112, 58, 0.2);
+}
+.feel-card:nth-child(even):hover { transform: translateY(-6px) rotate(1deg); }
+.feel-card:hover::after {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.feel-icon { font-size: 1.6rem; display: block; margin-bottom: 0.7rem; }
+.feel-card p { margin: 0; font-weight: 500; }
+
+/* =========================================================
+   CONFESSION
+   ========================================================= */
+.confession {
+  background: var(--rosa-suave);
+  border-radius: 40px;
+  margin: 2rem auto;
+  max-width: 900px;
+  position: relative;
+}
+.confession::before {
+  content: "🤍";
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+.confession h2 { color: var(--cafe-texto); }
+.confession p { color: var(--cafe-texto); }
+
+/* =========================================================
+   WANTS
+   ========================================================= */
+.wants {
+  text-align: center;
+  background: var(--blanco-calido);
+  position: relative;
+  overflow: hidden;
+}
+.wants::before {
+  content: "";
+  position: absolute;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: var(--crema);
+  top: -80px; right: -80px;
+  z-index: 0;
+  pointer-events: none;
+}
+.wants .container { position: relative; z-index: 1; }
+
+.wants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1.6rem;
+  margin-top: 2.5rem;
+}
+.want-card {
+  padding: 1.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  background: var(--crema);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+.want-card::after {
+  content: "✨";
+  position: absolute;
+  top: 6px; right: 12px;
+  font-size: 1rem;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.want-card:hover { transform: translateY(-5px) scale(1.02); }
+.want-card:hover::after { opacity: 1; transform: scale(1); }
+.want-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--caramelo);
+  color: var(--blanco-calido);
+  font-size: 1.4rem;
+  margin-bottom: 0.9rem;
+}
+.want-card h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+.want-card p { color: var(--cafe-suave); font-size: 0.95rem; margin: 0; }
+
+/* =========================================================
+   MEMORIES
+   ========================================================= */
+.memories {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.memories::before {
+  content: "";
+  position: absolute;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: var(--rosa-suave);
+  opacity: 0.45;
+  bottom: -70px; left: -70px;
+  z-index: 0;
+  pointer-events: none;
+}
+.memories .container { position: relative; z-index: 1; }
+
+.memories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.4rem;
+  margin-top: 2rem;
+}
+.memory-card {
+  background: var(--blanco-calido);
+  border: 1.5px dashed rgba(169, 112, 58, 0.35);
+  border-radius: var(--radius-md);
+  padding: 1.6rem 1rem;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  position: relative;
+}
+.memory-card::after {
+  content: "💕";
+  position: absolute;
+  top: -8px; right: -8px;
+  font-size: 1.15rem;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.memory-card:hover { transform: translateY(-5px); border-color: var(--caramelo); }
+.memory-card:hover::after { opacity: 1; transform: scale(1); }
+.memory-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  background: var(--beige);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: var(--caramelo-oscuro);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.memory-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.6rem;
+  background: var(--beige);
+}
+.memory-card h4 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--cafe-texto);
+  margin: 0;
+}
+
+/* =========================================================
+   INTERACTIVE CINNAMON ROLL
+   ========================================================= */
+.interactive-section { background: var(--blanco-calido); }
+
+.roll-stage {
+  position: relative;
+  max-width: 520px;
+  margin: 2.5rem auto 0;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roll-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 180px;
+  height: 180px;
+  padding: 0;
+  transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+  z-index: 1;
+  position: relative;
+}
+.roll-button:hover { transform: scale(1.06) rotate(3deg); }
+.roll-button:active { transform: scale(0.96); }
+
+.roll-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 22px rgba(169, 112, 58, 0.28));
+}
+
+.roll-phrases {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.roll-phrase {
+  position: absolute;
+  top: 50%; left: 50%;
+  background: var(--blanco-calido);
+  color: var(--cafe-texto);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  white-space: nowrap;
+  opacity: 0;
+  animation: popOut 2.6s ease forwards;
+}
+@keyframes popOut {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+  15%  { opacity: 1; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) - 18px)) scale(0.95); }
+}
+
+/* =========================================================
+   LETTER
+   ========================================================= */
+.letter { background: var(--rosa-suave); }
+.letter-paper {
+  background: var(--blanco-calido);
+  border-radius: var(--radius-lg);
+  padding: 2.6rem 2.2rem;
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-hand);
+  font-size: 1.55rem;
+  line-height: 1.5;
+  color: var(--cafe-texto);
+}
+.letter-paper p { margin-bottom: 0.9rem; }
+.letter-paper .signature {
+  text-align: right;
+  font-size: 1.8rem;
+  color: var(--caramelo-oscuro);
+  margin-top: 1.2rem;
+}
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+.final {
+  min-height: 70svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--crema);
+  position: relative;
+  overflow: hidden;
+}
+
+.final::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/cinnamoroll-fresa.png');
+  background-repeat: repeat;
+  background-size: 150px auto;
+  opacity: 0.10;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.final-content {
+  position: relative;
+  z-index: 1;
+}
+.final-for {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--caramelo-oscuro);
+  margin-bottom: 0.3rem;
+}
+.final-from { color: var(--cafe-suave); font-size: 1.05rem; margin-bottom: 1.2rem; }
+.final-emojis { font-size: 1.8rem; margin: 0; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 576px) {
+  .section { padding: 4.5rem 1.2rem; }
+  body { font-size: 16px; }
+  .letter-paper { padding: 1.8rem 1.4rem; font-size: 1.3rem; }
+  .roll-phrase { font-size: 0.82rem; padding: 0.45rem 0.85rem; }
+  .roll-button { width: 150px; height: 150px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal-on-load, .roll-emoji, .roll-emoji-sm, .scroll-hint, .ambient span {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
